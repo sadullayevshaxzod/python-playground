@@ -16,7 +16,7 @@ result=leaner_search(sonlar,x_top)
                         #Beanry Search
 sonlar=[3,4,1,33,4,5,6,8,9,10,11,13,23,12,34]
 s_sonlar=sorted(sonlar)
-print(s_sonlar)
+
 x_top=1
 def beanry_search(royxat,x):
     left=0
@@ -164,6 +164,76 @@ def choqqini_top(royxat):
         else:
             r=mid-1
 natija=choqqini_top(r)
+
+# 6-masala: "Aylantirilgan ro'yxatdan qidirish" (Rotated Array) — (Murakkab)
+# Shart: Sarolangan ro'yxat ma'lum bir joyidan "aylantirilgan" (surilgan). Masalan, [1, 2, 4, 5, 6, 7] ro'yxati 2 marta surilib, [6, 7, 1, 2, 4, 5] bo'lib qolgan. Binary Search yordamida berilgan x sonini shu ro'yxatdan toping.
+
+nums=[6, 7, 1, 2, 4, 5]
+# Kiritish: x = 2
+# Kutilayotgan natija: 2 soni 3-indeksda topildi
+def a_r_qidrish(royxat,x):
+    left=0
+    right=len(royxat)-1
+    while left<=right:
+        mid=(left+right)//2
+        if royxat[mid]==x:
+            return mid
+        if royxat[left] <= royxat[mid]:
+            if royxat[left] <= x < royxat[mid]:
+                right=mid-1
+            else:
+                left=mid+1
+        else:
+            if royxat[mid]<x<=royxat[right]:
+                left=mid+1
+            else:
+                right=mid-1
+
+    return "Element ro'yxatda topilmadi."
+r=a_r_qidrish(nums,6)
+
+
+# 7-masala: "Yetishmayotgan sonni topish" — (Boshlang'ich)
+# Shart: Sizga 0 dan N gacha bo'lgan, sarolangan va 1 ta son tushirib qoldirilgan ro'yxat berilgan. Binary Search yordamida qaysi son tushib qolganini toping.
+
+a=[0, 1,2,3,4,5, 6, 7,9] #(chunki 4 tushib qolgan)
+
+# Kutilayotgan natija: Tushib qolgan son: 4
+def tushirilgan_sontop(nums):
+    l=0
+    r=len(nums)-1
+    while l<=r:
+        mid=(l+r)//2
+        if nums[mid] ==mid:
+            l=mid+1
+
+        else:
+            r=mid-1
+    return l
+result=tushirilgan_sontop(a)
+
+
+# "Yagona takrorlanmas elementni topish" (O'rta)
+# Shart: Sarolangan ro'yxatda bitta elementdan tashqari hamma elementlar aynan 2 martadan takrorlangan. Binary Search yordamida faqat 1 marta uchrashgan yagona elementni toping.
+
+numss=[1, 1, 2, 3, 3, 4, 4, 8, 8]
+
+# Kutilayotgan natija: 2
+
+def bitta_son(nums):
+    l=0
+    r=len(nums)-1
+    while l<r:
+        mid=(l+r)//2
+        if mid % 2 !=0 :
+            mid-=1
+        if nums[mid] == nums[mid+1]:
+            l+=2
+        else:
+            r=mid
+    return nums[l]
+son=bitta_son(numss)
+print(son)
 
 
 
